@@ -1,0 +1,140 @@
+ID:5
+QUESTION:The Indus Valley Civilization is primarily known for its advanced achievement in which of the following areas?
+OPT1:Chariot warfare
+OPT2:Large stone sculptures
+OPT3:Urban planning
+OPT4:Glass manufacturing
+CORRECT:3
+CATEGORY:History
+DIFFICULTY:0
+---
+ID:4
+QUESTION:The famous slogan "Give me blood and I will give you freedom" was said by which prominent freedom fighter?
+OPT1:Mahatma Gandhi
+OPT2:Bhagat Singh
+OPT3:Subhas Chandra Bose
+OPT4:Jawaharlal Nehru
+CORRECT:3
+CATEGORY:History
+DIFFICULTY:0
+---
+ID:3
+QUESTION: Which Indian emperor is famous for embracing Buddhism and propagating its principles after the Kalinga War?
+OPT1:Chandragupta Maurya
+OPT2:Ashoka
+OPT3:Samudragupta
+OPT4:Harshavardhana
+CORRECT:2
+CATEGORY:History
+DIFFICULTY:0
+---
+ID:1
+QUESTION:What is the standard temperature at which water boils at sea level?
+OPT1:0°C
+OPT2:50°C
+OPT3:90°C
+OPT4:100°C
+CORRECT:4
+CATEGORY:General Knowledge
+DIFFICULTY:0
+---
+ID:8
+QUESTION:The Treaty of Seringapatam in 1792, which ended the Third Anglo-Mysore War, was signed between the British East India Company and which powerful ruler?
+OPT1:Mir Jafar
+OPT2:Tipu Sultan
+OPT3:Baji Rao II
+OPT4:Siraj-ud-Daulah
+CORRECT:2
+CATEGORY:History
+DIFFICULTY:1
+---
+ID:7
+QUESTION:Which of the following European powers was the last to officially leave India, evacuating the territories of Goa, Daman, and Diu in 1961?
+OPT1:The British
+OPT2:The French
+OPT3:The Dutch
+OPT4:The Portuguese
+CORRECT:4
+CATEGORY:History
+DIFFICULTY:1
+---
+ID:6
+QUESTION:The famous traveler Ibn Battuta, whose detailed accounts describe medieval Indian society, belonged to which country?
+OPT1:Persia
+OPT2:Uzbekistan
+OPT3:Morocco
+OPT4:Turkey
+CORRECT:3
+CATEGORY:History
+DIFFICULTY:1
+---
+ID:2
+QUESTION:The Nobel Peace Prize is awarded annually in which city?
+OPT1:Stockholm, Sweden
+OPT2:Geneva, Switzerland
+OPT3:Oslo, Norway
+OPT4:Copenhagen, Denmark
+CORRECT:3
+CATEGORY:General Knowledge
+DIFFICULTY:1
+---
+ID:11
+QUESTION:The ancient Indian treatise 'Arthashastra', which covers statecraft, economic policy, and military strategy, is primarily attributed to which scholar?
+OPT1:Banabhatta
+OPT2:Kalidasa
+OPT3:Chanakya (Kautilya)
+OPT4:Vishakhadatta
+CORRECT:3
+CATEGORY:History
+DIFFICULTY:2
+---
+ID:10
+QUESTION:The Jallianwala Bagh Massacre of 1919, a tragic event in India's freedom struggle, took place during the tenure of which Viceroy of India?
+OPT1:Lord Curzon
+OPT2:Lord Chelmsford
+OPT3:Lord Irwin
+OPT4:Lord Reading
+CORRECT:2
+CATEGORY:History
+DIFFICULTY:2
+---
+ID:9
+QUESTION:The syncretic religion Din-i-Ilahi, intended to merge the best elements of various faiths, was promulgated by which Mughal Emperor?
+OPT1:Jahangir
+OPT2:Shah Jahan
+OPT3:Aurangzeb
+OPT4:Akbar
+CORRECT:4
+CATEGORY:History
+DIFFICULTY:2
+---
+ID:12
+QUESTION:Which specific type of clock or watch is designed to keep accurate time even when subjected to variable temperature, humidity, or motion, and is essential for navigation?
+OPT1:Atomic Clock
+OPT2:Quartz Watch
+OPT3:Pendulum Clock
+OPT4:Chronometer
+CORRECT:4
+CATEGORY:General Knowledge
+DIFFICULTY:2
+---
+ID:13
+QUESTION:In the English language, what is the term for a word that is spelled the same forwards and backwards, such as "madam" or "refer"?
+OPT1:Anagram
+OPT2:Palindrome
+OPT3:Homophone
+OPT4:Oxymoron
+CORRECT:2
+CATEGORY:General Knowledge
+DIFFICULTY:2
+---
+ID:14
+QUESTION:The CERN research organization, which operates the Large Hadron Collider, is headquartered near which European city?
+OPT1:Brussels
+OPT2:Geneva
+OPT3:Paris
+OPT4:Vienna
+CORRECT:2
+CATEGORY:General Knowledge
+DIFFICULTY:2
+---
