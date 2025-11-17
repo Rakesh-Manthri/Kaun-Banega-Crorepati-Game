@@ -16,6 +16,15 @@ static void useAudiencePoll(Question *q, int percentages[]);
 static int handleLifeline(Question *currentQ, int lifelines[], Contestant *player, Stack* lifelineStack);
 static void handleLeaderboard();
 
+// ANSI Color Codes - Duplicated here for controller-specific messages
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 static int performAdminLogin() {
     char username[50];
     char password[50];
@@ -23,10 +32,10 @@ static int performAdminLogin() {
     getAdminCredentials(username, password);
 
     if (strcmp(username, "admin") == 0 && strcmp(password, "pass123") == 0) {
-        printf("\nLogin Successful!\n");
+        printf(ANSI_COLOR_GREEN "\nLogin Successful!\n" ANSI_COLOR_RESET);
         return 1;
     } else {
-        printf("\nInvalid credentials!\n");
+        printf(ANSI_COLOR_RED "\nInvalid credentials!\n" ANSI_COLOR_RESET);
         return 0;
     }
 }
@@ -55,10 +64,10 @@ void adminController() {
                 handleLeaderboard();
                 break;
             case 5:
-                printf("\nLogging out...\n");
+                printf(ANSI_COLOR_YELLOW "\nLogging out...\n" ANSI_COLOR_RESET);
                 break;
             default:
-                printf("\nInvalid choice. Please try again.\n");
+                printf(ANSI_COLOR_RED "\nInvalid choice. Please try again.\n" ANSI_COLOR_RESET);
                 break;
         }
     } while (choice != 5);
@@ -68,9 +77,9 @@ static void handleAddQuestion() {
     Question newQ = getQuestionDetailsFromAdmin();
     addQuestionToList(&newQ);
     if (saveQuestionsToFile("questions.txt")) {
-        printf("\nQuestion added successfully!\n");
+        printf(ANSI_COLOR_GREEN "\nQuestion added successfully!\n" ANSI_COLOR_RESET);
     } else {
-        printf("\nError: Could not save the question to the file.\n");
+        printf(ANSI_COLOR_RED "\nError: Could not save the question to the file.\n" ANSI_COLOR_RESET);
     }
 }
 
@@ -78,12 +87,12 @@ static void handleDeleteQuestion() {
     int id = getQuestionIdForDeletion();
     if (deleteQuestionById(id)) {
         if (saveQuestionsToFile("questions.txt")) {
-            printf("\nQuestion with ID %d deleted successfully.\n", id);
+            printf(ANSI_COLOR_GREEN "\nQuestion with ID %d deleted successfully.\n" ANSI_COLOR_RESET, id);
         } else {
-            printf("\nError: Could not update the questions file.\n");
+            printf(ANSI_COLOR_RED "\nError: Could not update the questions file.\n" ANSI_COLOR_RESET);
         }
     } else {
-        printf("\nQuestion with ID %d not found.\n", id);
+        printf(ANSI_COLOR_RED "\nQuestion with ID %d not found.\n" ANSI_COLOR_RESET, id);
     }
 }
 
@@ -99,7 +108,7 @@ static void handleViewQuestions() {
         getCategoryFromAdmin(category);
     }
 
-    printf("\n--- Displaying Questions ---\n");
+    printf("\n--- " ANSI_COLOR_YELLOW "Displaying Questions" ANSI_COLOR_RESET " ---\n");
     displayFilteredQuestions(difficulty, category);
 }
 
@@ -114,7 +123,7 @@ int compareContestants(const void* a, const void* b) {
 static void handleLeaderboard() {
     FILE* file = fopen("participants.txt", "r");
     if (file == NULL) {
-        printf("\nNo participant data found to generate a leaderboard.\n");
+        printf(ANSI_COLOR_RED "\nNo participant data found to generate a leaderboard.\n" ANSI_COLOR_RESET);
         return;
     }
 
@@ -135,7 +144,7 @@ static void handleLeaderboard() {
     fclose(file);
 
     if (count == 0) {
-        printf("\nNo participant data found.\n");
+        printf(ANSI_COLOR_RED "\nNo participant data found.\n" ANSI_COLOR_RESET);
         return;
     }
 
@@ -245,11 +254,11 @@ static int handleLifeline(Question *currentQ, int lifelines[], Contestant *playe
                     }
                 }
                 if (!found_replacement) {
-                     printf("\nSorry, no replacement question of the same difficulty was available. You have lost the lifeline.\n");
+                     printf(ANSI_COLOR_RED "\nSorry, no replacement question of the same difficulty was available. You have lost the lifeline.\n" ANSI_COLOR_RESET);
                 }
 
             } else {
-                printf("\nYou have already used the Flip the Question lifeline!\n");
+                printf(ANSI_COLOR_RED "\nYou have already used the Flip the Question lifeline!\n" ANSI_COLOR_RESET);
             }
             break;
         case 3:
@@ -261,11 +270,11 @@ static int handleLifeline(Question *currentQ, int lifelines[], Contestant *playe
                 lifelines[2] = 0;
                 player->lifelinesUsed++;
             } else {
-                printf("\nYou have already used the Audience Poll lifeline!\n");
+                printf(ANSI_COLOR_RED "\nYou have already used the Audience Poll lifeline!\n" ANSI_COLOR_RESET);
             }
             break;
         default:
-            printf("\nReturning to the question.\n");
+            printf(ANSI_COLOR_YELLOW "\nReturning to the question.\n" ANSI_COLOR_RESET);
             break;
     }
 
@@ -281,7 +290,7 @@ void contestantController() {
 
     QuizData* quizData = getQuizData();
     if (quizData == NULL) {
-        printf("\nCould not start the quiz due to an insufficient number of questions. Please contact the admin.\n");
+        printf(ANSI_COLOR_RED "\nCould not start the quiz due to an insufficient number of questions. Please contact the admin.\n" ANSI_COLOR_RESET);
         return;
     }
     Queue* quizQueue = quizData->quizQueue;
@@ -329,7 +338,7 @@ void contestantController() {
                 isPlaying = 0;
                 answer_given = 1;
             } else if (timeLimit > 0 && (endTime - startTime) > timeLimit) {
-                printf("\nTime's up!\n");
+                printf(ANSI_COLOR_RED "\nTime's up!\n" ANSI_COLOR_RESET);
                 player.prizeWon = safePrize;
                 isPlaying = 0;
                 answer_given = 1;
@@ -351,7 +360,7 @@ void contestantController() {
                 answer_given = 1;
             }
             else {
-                printf("\nInvalid input. Please choose an option from 1-4, or 5 for a lifeline.\n");
+                printf(ANSI_COLOR_RED "\nInvalid input. Please choose an option from 1-4, or 5 for a lifeline.\n" ANSI_COLOR_RESET);
             }
         }
 
