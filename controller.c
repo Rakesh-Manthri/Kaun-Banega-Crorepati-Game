@@ -10,11 +10,11 @@ static int performAdminLogin();
 static void handleViewQuestions();
 static void handleAddQuestion();
 static void handleDeleteQuestion();
-static void handleViewAllParticipants();
 static void shuffleQuestionOptions(Question *q);
 static void useFiftyFifty(Question *q);
 static void useAudiencePoll(Question *q, int percentages[]);
 static int handleLifeline(Question *currentQ, int lifelines[], Contestant *player, Stack* lifelineStack);
+static void handleLeaderboard();
 
 static int performAdminLogin() {
     char username[50];
@@ -52,22 +52,16 @@ void adminController() {
                 handleDeleteQuestion();
                 break;
             case 4:
-                handleViewAllParticipants();
+                handleLeaderboard();
                 break;
             case 5:
-                printf("\nFeature 'View Top Participants' is under construction.\n");
-                break;
-            case 6:
-                printf("\nFeature 'Analysis of Participants' is under construction.\n");
-                break;
-            case 7:
                 printf("\nLogging out...\n");
                 break;
             default:
                 printf("\nInvalid choice. Please try again.\n");
                 break;
         }
-    } while (choice != 7);
+    } while (choice != 5);
 }
 
 static void handleAddQuestion() {
@@ -109,9 +103,45 @@ static void handleViewQuestions() {
     displayFilteredQuestions(difficulty, category);
 }
 
-static void handleViewAllParticipants() {
-    printf("\n--- All Participants ---\n");
-    displayAllParticipants("participants.txt");
+int compareContestants(const void* a, const void* b) {
+    Contestant* c1 = (Contestant*)a;
+    Contestant* c2 = (Contestant*)b;
+    if (c1->prizeWon < c2->prizeWon) return 1;
+    if (c1->prizeWon > c2->prizeWon) return -1;
+    return 0;
+}
+
+static void handleLeaderboard() {
+    FILE* file = fopen("participants.txt", "r");
+    if (file == NULL) {
+        printf("\nNo participant data found to generate a leaderboard.\n");
+        return;
+    }
+
+    Contestant contestants[100]; // Assuming a max of 100 participants for simplicity
+    int count = 0;
+    char line[256];
+
+    while (fgets(line, sizeof(line), file) != NULL && count < 100) {
+        sscanf(line, "ID:%d, Name:%[^,], Age:%d, Gender:%[^,], QuestionsAnswered:%d, Prize:Rs.%ld",
+               &contestants[count].id,
+               contestants[count].name,
+               &contestants[count].age,
+               contestants[count].gender,
+               &contestants[count].questionsAnswered,
+               &contestants[count].prizeWon);
+        count++;
+    }
+    fclose(file);
+
+    if (count == 0) {
+        printf("\nNo participant data found.\n");
+        return;
+    }
+
+    qsort(contestants, count, sizeof(Contestant), compareContestants);
+
+    displayLeaderboard(contestants, count);
 }
 
 static void shuffleQuestionOptions(Question *q) {
@@ -249,8 +279,6 @@ void contestantController() {
     printf("\nPress Enter to start the quiz...");
     getchar();
 
-    srand(time(NULL));
-
     QuizData* quizData = getQuizData();
     if (quizData == NULL) {
         printf("\nCould not start the quiz due to an insufficient number of questions. Please contact the admin.\n");
@@ -273,10 +301,17 @@ void contestantController() {
         shuffleQuestionOptions(&currentQ);
 
         int answer_given = 0;
+        int timer_needs_reset = 1;
+        time_t startTime;
+
         while (!answer_given) {
             displayQuizQuestion(currentQ, questionNumber, currentPrize);
 
-            time_t startTime = time(NULL);
+            if (timer_needs_reset) {
+                startTime = time(NULL);
+                timer_needs_reset = 0;
+            }
+
             int timeLimit = 0;
             if (currentQ.difficulty == 0) timeLimit = 30;
             if (currentQ.difficulty == 1) timeLimit = 60;
@@ -287,6 +322,7 @@ void contestantController() {
             if (answer == 5) {
                 if (handleLifeline(&currentQ, lifelines, &player, lifelineStack)) {
                     shuffleQuestionOptions(&currentQ);
+                    timer_needs_reset = 1;
                 }
             } else if (answer == 0) {
                 printf("\nYou have chosen to quit the game.\n");
@@ -294,6 +330,7 @@ void contestantController() {
                 answer_given = 1;
             } else if (timeLimit > 0 && (endTime - startTime) > timeLimit) {
                 printf("\nTime's up!\n");
+                player.prizeWon = safePrize;
                 isPlaying = 0;
                 answer_given = 1;
             } else if (answer >= 1 && answer <= 4) {

@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 #include "view.h"
 #include "controller.h"
 #include "model.h"
@@ -8,6 +10,8 @@ int main() {
         fprintf(stderr, "Error: Could not load questions. Exiting.\n");
         return 1;
     }
+
+    srand(time(NULL));
 
     int choice;
     while (1) {

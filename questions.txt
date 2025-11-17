@@ -138,3 +138,173 @@ CORRECT:2
 CATEGORY:General Knowledge
 DIFFICULTY:2
 ---
+ ID:15
+QUESTION: The International Date Line largely follows which line of longitude?
+OPT1:0 Degree longitude
+OPT2:90 Degree East longitude
+OPT3:90 Degree West longitude
+OPT4:180 Degree longitude
+CORRECT:4
+CATEGORY:Geography
+DIFFICULTY:2
+---
+ID:16
+QUESTION: The Great Barrier Reef, the world's largest coral reef system, is located off the coast of which country?
+OPT1:Brazil
+OPT2:Indonesia
+OPT3:Philippines
+OPT4:Australia
+CORRECT:4
+CATEGORY:Geography
+DIFFICULTY:2
+---
+ID:16
+QUESTION:What is the main component of the Sun and other stars?
+OPT1:Oxygen
+OPT2:Carbon Dioxide
+OPT3:Hydrogen
+OPT4:Iron
+CORRECT:3
+CATEGORY:Science
+DIFFICULTY:2
+---
+ID:17
+QUESTION:In biology, what is the term for an organism that can synthesize its own food using light or chemical energy?
+OPT1:Heterotroph
+OPT2:Carnivore
+OPT:3Autotroph
+OPT4:Decomposer
+CORRECT:3
+CATEGORY:Science
+DIFFICULTY:2
+---
+ID:18
+QUESTION:How many players are there on the field for one team in a standard game of Football (Soccer)?
+OPT1:9
+OPT2:10
+OPT3:11
+OPT4:12
+CORRECT:3
+CATEGORY:Sports
+DIFFICULTY:0
+---
+ID:19
+QUESTION:The term "Birdie" is commonly used in which sport?
+OPT1:Tennis
+OPT2:Baseball
+OPT3:Golf
+OPT4:Badminton
+CORRECT:3
+CATEGORY:SPORTS
+DIFFICULTY:1
+---
+ID:20
+QUESTION:The term "Grand Slam" in tennis refers to winning which four tournaments in the same calendar year?
+OPT1:Wimbledon, US Open, Rome Masters, Australian Open
+OPT2:Australian Open, French Open, Wimbledon, US Open
+OPT3:French Open, US Open, Wimbledon, Indian Wells Masters
+OPT4:Australian Open, French Open, Davis Cup, US Open
+CORRECT:2
+CATEGORY:SPORTS
+DIFFICULTY:2
+---
+ID:21
+QUESTION: In Hindu mythology, which god is known as the Preserver of the universe?
+OPT1:Shiva
+OPT2:Brahma
+OPT3:Vishnu
+OPT4:Indra
+CORRECT:3
+CATEGORY:MYTHOLOGY
+DIFFICULTY:0
+---
+ID:22
+QUESTION:The Gatka martial art form is closely associated with the traditions of which Indian religion?
+OPT1:Jainism
+OPT2:Buddhism
+OPT3:Hinduism
+OPT4:Sikhism
+CORRECT:4
+CATEGORY:MYTHOLOGY
+DIFFICULTY:1
+---
+ID:23
+QUESTION:The sacred Hindu text, the Bhagavad Gita, is part of which larger epic poem?
+OPT1:Ramayana
+OPT2:Puranas
+OPT3:Mahabharata
+OPT4:Vedas
+CORRECT:3
+CATEGORY:MYTHOLOGY
+DIFFICULTY:1
+---
+ID:24
+QUESTION:Which Mughal emperor commissioned the construction of the Jama Masjid mosque in Delhi?
+OPT1:Akbar
+OPT2:Jahangir
+OPT3:Shah Jahan
+OPT4:Aurangzeb
+CORRECT:3
+CATEGORY:MYTHOLOGY
+DIFFICULTY:2
+---
+ID:25
+QUESTION:The famous painting 'Mona Lisa' was created by which Renaissance artist?
+OPT1:Michelangelo
+OPT2:Raphael
+OPT3:Leonardo da Vinci
+OPT4:Donatello
+CORRECT:3
+CATEGORY:ARTS AND ENTERTAINMENT
+DIFFICULTY:0
+---
+ID:26
+QUESTION:Which classical Indian singer was the first musician to be awarded the Bharat Ratna, India's highest civilian award?
+OPT1:Lata Mangeshkar
+OPT2:M. S. Subbulakshmi
+OPT3:Bismillah Khan
+OPT4:Ravi Shankar
+CORRECT:2
+CATEGORY:ARTS AND ENTERTAINMENT
+DIFFICULTY:1
+---
+ID:27
+QUESTION:The Golden Lion is the highest award given to a film at which international film festival?
+OPT1:Cannes Film Festival
+OPT2:Berlin International Film Festival
+OPT3:Venice Film Festival
+OPT4:Toronto International Film Festival
+CORRECT:3
+CATEGORY:ARTS AND ENTERTAINMENT
+DIFFICULTY:2
+---
+ID:28
+QUESTION:In the English language, what is the term for a word that is spelled the same forwards and backwards, such as "madam" or "refer"?
+OPT1:Anagram
+OPT2:Palindrome
+OPT3:Homophone
+OPT4:Oxymoron
+CORRECT:2
+CATEGORY:General knowledge
+DIFFICULTY:1
+---
+ID:29
+QUESTION:The G20 Summit (Group of Twenty) is an annual gathering of leaders representing the world's major?
+OPT1:Military Powers
+OPT2:Developing Nations
+OPT3:Economies
+OPT4:Oil-Producing Nations
+CORRECT:3
+CATEGORY:General knowledge
+DIFFICULTY:1
+---
+ID:30
+QUESTION:Which international organization is responsible for addressing issues related to global health?
+OPT1:UNESCO
+OPT2:IMF
+OPT3:WHO
+OPT4:UNICEF
+CORRECT:3
+CATEGORY:General knowledge
+DIFFICULTY:1
+---

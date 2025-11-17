@@ -14,7 +14,7 @@ int getFilterChoiceForViewing();
 int getDifficultyLevelFromAdmin();
 void getCategoryFromAdmin(char* category);
 void displayFilteredQuestions(int difficulty, const char* category);
-void displayAllParticipants(const char* filename);
+void displayLeaderboard(Contestant* contestants, int count);
 
 Contestant getContestantDetails();
 void displayRules();

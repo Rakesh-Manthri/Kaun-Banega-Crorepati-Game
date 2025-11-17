@@ -27,10 +27,8 @@ void displayAdminMenu() {
     printf("1. View Questions\n");
     printf("2. Add Question\n");
     printf("3. Delete Question\n");
-    printf("4. View All Participants List\n");
-    printf("5. View Top Participants\n");
-    printf("6. Analysis of Participants\n");
-    printf("7. Logout\n");
+    printf("4. View Leaderboard\n");
+    printf("5. Logout\n");
     printf("Enter your choice: ");
 }
 
@@ -166,17 +164,16 @@ void displayFilteredQuestions(int difficulty, const char* category) {
     }
 }
 
-void displayAllParticipants(const char* filename) {
-    FILE* file = fopen(filename, "r");
-    if (file == NULL) {
-        printf("\nNo participant data found.\n");
-        return;
+void displayLeaderboard(Contestant* contestants, int count) {
+    printf("\n--- KBC Leaderboard ---\n");
+    printf("----------------------------------------------------------------------------------------------------\n");
+    printf("| %-4s | %-10s | %-30s | %-5s | %-10s | %-7s | %-12s |\n", "Rank", "ID", "Name", "Age", "Gender", "Qns Ans", "Prize Won");
+    printf("----------------------------------------------------------------------------------------------------\n");
+    for (int i = 0; i < count; i++) {
+        printf("| %-4d | %-10d | %-30s | %-5d | %-10s | %-7d | Rs. %-8ld |\n",
+               i + 1, contestants[i].id, contestants[i].name, contestants[i].age, contestants[i].gender, contestants[i].questionsAnswered, contestants[i].prizeWon);
     }
-    char line[256];
-    while (fgets(line, sizeof(line), file)) {
-        printf("%s", line);
-    }
-    fclose(file);
+    printf("----------------------------------------------------------------------------------------------------\n");
 }
 
 Contestant getContestantDetails() {
@@ -209,8 +206,8 @@ void displayRules() {
     printf("3. Questions 4-6 (Medium) have a 60-second time limit.\n");
     printf("4. Questions 7-10 (Hard) have no time limit.\n");
     printf("5. Answering incorrectly will end the game.\n");
-    printf("6. You have three lifelines: 50-50, Flip the Question, Audience Poll (Not yet implemented).\n");
-    printf("Good luck!\n");
+    printf("6. You have three lifelines: 50-50, Flip the Question, Audience Poll.\n\n");
+    printf("Toh chaliye... shuru karte hain aaj ka yeh gyaan, himmat aur kismet ka safar.\n");
 }
 
 void displayQuizQuestion(Question q, int questionNumber, long prizeMoney) {
@@ -234,6 +231,7 @@ int getAnswerFromUser() {
 }
 
 void displayLifelineMenu(const int lifelines[]) {
+    printf("\nAgar man mein halka sa bhi sandeh hai... lifeline toh aapke saath hai hi.");
     printf("\n--- Available Lifelines ---\n");
     if (lifelines[0]) printf("1. 50-50\n");
     if (lifelines[1]) printf("2. Flip the Question\n");
@@ -256,13 +254,14 @@ void displayAudiencePoll(const int percentages[]) {
 }
 
 void displayAnswerResult(int isCorrect) {
-    if (isCorrect) printf("\n>>> Correct Answer! <<<\n");
-    else printf("\n>>> Oh no, that was the wrong answer! <<<\n");
+    if (isCorrect) printf("\n\t>>> Correct Answer! <<<\nBilkul sahi jawaab! Bahut-bahut badhaai ho aapko.\n");
+    else printf("\n\t>>> Oh no, that was the wrong answer! <<<\n");
 }
 
 void displayGameOver(Contestant player) {
-    printf("\n--- GAME OVER ---\n");
-    printf("Congratulations, %s!\n", player.name);
+    printf("\nKoi baat nahi... har galti ek seekh hoti hai. Aapka safar abhi baaki hai.");
+    printf("\n\t--- GAME OVER ---\n");
+    printf("\tCongratulations, %s!\n", player.name);
     printf("You answered %d questions correctly and won Rs. %ld!\n", player.questionsAnswered, player.prizeWon);
     printf("Press Enter to return to the main menu...");
     getchar();
