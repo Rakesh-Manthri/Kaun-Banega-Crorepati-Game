@@ -1,28 +1,22 @@
-// model.c
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
 #include "model.h"
 
-// Definition of the global linked list heads
 Question *easyQuestions = NULL;
 Question *mediumQuestions = NULL;
 Question *hardQuestions = NULL;
 
-// Helper function to insert a node into a list
 void insertNode(Question** head, Question* newNode) {
     newNode->next = *head;
     *head = newNode;
 }
 
-// Helper to parse a line like "KEY:Value"
 void parseLine(char* line, char* value) {
     char* colon = strchr(line, ':');
     if (colon != NULL) {
         strcpy(value, colon + 1);
-        // Trim leading/trailing whitespace, especially the newline
         value[strcspn(value, "\r\n")] = 0;
     }
 }
@@ -30,8 +24,6 @@ void parseLine(char* line, char* value) {
 int loadQuestionsFromFile(const char* filename) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
-        // If the file doesn't exist, it's not an error.
-        // It just means we start with no questions.
         return 1; 
     }
 
@@ -45,7 +37,6 @@ int loadQuestionsFromFile(const char* filename) {
         }
         newQ->next = NULL;
 
-        // Use a structured way to read key-value pairs
         char value[512];
         
         parseLine(line, value); // ID:101
@@ -70,10 +61,8 @@ int loadQuestionsFromFile(const char* filename) {
         parseLine(line, value);
         newQ->difficulty = atoi(value);
 
-        // Read the separator "---"
         fgets(line, sizeof(line), file);
 
-        // Add the new question to the correct list
         addQuestionToList(newQ);
         free(newQ); // addQuestionToList makes its own copy, so free the temporary one
     }
@@ -83,22 +72,20 @@ int loadQuestionsFromFile(const char* filename) {
 }
 
 void addQuestionToList(Question* newQuestionData) {
-    // Create a new node and copy the data
     Question* newNode = (Question*)malloc(sizeof(Question));
     if (newNode == NULL) return;
     
     *newNode = *newQuestionData; // Copy all data
     newNode->next = NULL;
 
-    // Insert into the correct list based on difficulty
     switch (newNode->difficulty) {
-        case 0: // Easy
+        case 0:
             insertNode(&easyQuestions, newNode);
             break;
-        case 1: // Medium
+        case 1:
             insertNode(&mediumQuestions, newNode);
             break;
-        case 2: // Hard
+        case 2:
             insertNode(&hardQuestions, newNode);
             break;
         default: // Invalid difficulty, free the allocated memory
@@ -146,9 +133,9 @@ int deleteQuestionById(int id) {
         
         while (current != NULL) {
             if (current->id == id) {
-                if (prev == NULL) { // Deleting the head node
+                if (prev == NULL) {
                     *(heads[i]) = current->next;
-                } else { // Deleting a middle or tail node
+                } else {
                     prev->next = current->next;
                 }
                 free(current);
@@ -161,7 +148,6 @@ int deleteQuestionById(int id) {
     return 0; // Not found
 }
 
-// Helper function to free a single list
 void freeList(Question* head) {
     Question* current = head;
     Question* nextNode;
@@ -179,7 +165,6 @@ void cleanupQuestions() {
     easyQuestions = mediumQuestions = hardQuestions = NULL;
 }
 
-// Helper function to get the count of questions in a list
 int countQuestions(Question* head) {
     int count = 0;
     Question* current = head;
@@ -190,7 +175,6 @@ int countQuestions(Question* head) {
     return count;
 }
 
-// Helper function to get a question at a specific index in a list
 Question* getQuestionAtIndex(Question* head, int index) {
     Question* current = head;
     for (int i = 0; i < index; i++) {
@@ -199,8 +183,6 @@ Question* getQuestionAtIndex(Question* head, int index) {
     }
     return current;
 }
-
-// --- Queue Function Implementations ---
 
 Queue* createQueue(int size) {
     Queue *q = malloc(sizeof(Queue));
@@ -211,29 +193,23 @@ Queue* createQueue(int size) {
 }
 
 int isQueueEmpty(Queue *q) {
-    // The queue is empty if front is -1 or if front has passed rear
     return (q->f == -1 || q->f > q->r);
 }
 
 void enqueue(Queue *q, Question item) {
-    if (q->r == q->s - 1) { // Check if the queue is full
+    if (q->r == q->s - 1) {
         printf("Queue is full.\n");
         return;
     }
-    if (q->f == -1) { // If it's the first element
+    if (q->f == -1) {
         q->f = 0;
     }
     q->arr[++q->r] = item;
 }
 
 Question dequeue(Queue *q) {
-    // It's good practice to check if empty before calling dequeue,
-    // but we return the element at the front and increment the front index.
     return q->arr[q->f++];
 }
-
-
-// --- Stack Function Implementations ---
 
 Stack* createStack(int size) {
     Stack *s = malloc(sizeof(Stack));
@@ -270,7 +246,6 @@ QuizData* getQuizData() {
 
     Question* lists[] = {easyQuestions, mediumQuestions, hardQuestions};
     int counts[] = {countQuestions(easyQuestions), countQuestions(mediumQuestions), countQuestions(hardQuestions)};
-    // We need +1 for each difficulty for the lifeline stack
     int requiredForQueue[] = {3, 3, 4};
     int requiredForStack[] = {1, 1, 1};
 
@@ -288,7 +263,6 @@ QuizData* getQuizData() {
         int* selected_indices = calloc(counts[i], sizeof(int));
         if (selected_indices == NULL) return NULL;
 
-        // Select questions for the main quiz queue
         for (int j = 0; j < requiredForQueue[i]; j++) {
             int rand_index;
             do {
@@ -300,7 +274,6 @@ QuizData* getQuizData() {
             if (q != NULL) enqueue(data->quizQueue, *q);
         }
 
-        // Select one more unique question for the lifeline stack
         for (int j = 0; j < requiredForStack[i]; j++) {
             int rand_index;
             do {
@@ -309,21 +282,19 @@ QuizData* getQuizData() {
 
             selected_indices[rand_index] = 1;
             Question* q = getQuestionAtIndex(lists[i], rand_index);
-            // The stack is populated later to ensure correct order
             if (q != NULL) {
-                if (i == 0) push(data->lifelineStack, *q); // Easy
-                else if (i == 1) push(data->lifelineStack, *q); // Medium
-                else if (i == 2) push(data->lifelineStack, *q); // Hard
+                if (i == 0) push(data->lifelineStack, *q);
+                else if (i == 1) push(data->lifelineStack, *q);
+                else if (i == 2) push(data->lifelineStack, *q);
             }
         }
         free(selected_indices);
     }
-    // The logic above pushes easy, then medium, then hard, so hard is at the top.
     return data;
 }
 
 int saveContestantToFile(const char* filename, Contestant contestant) {
-    FILE* file = fopen(filename, "a"); // Open in append mode
+    FILE* file = fopen(filename, "a");
     if (file == NULL) {
         fprintf(stderr, "Error: Could not open file %s for appending.\n", filename);
         return 0;

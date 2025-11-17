@@ -1,13 +1,10 @@
-// view.c
-
 #include <stdio.h>
 #include <string.h>
-#include <conio.h> // For _getch() on Windows
+#include <conio.h>
 #include <time.h>
 #include "view.h"
 #include "model.h"
 
-// --- Main Menu ---
 void displayMainMenu() {
     printf("\n=========================\n");
     printf("    WELCOME TO KBC\n");
@@ -89,7 +86,6 @@ Question getQuestionDetailsFromAdmin() {
     scanf("%d", &q.difficulty);
     getchar();
 
-    // Clean up newline characters from fgets
     q.questionText[strcspn(q.questionText, "\n")] = 0;
     for(int i=0; i<4; i++) q.options[i][strcspn(q.options[i], "\n")] = 0;
     q.category[strcspn(q.category, "\n")] = 0;
@@ -138,7 +134,7 @@ void displayFilteredQuestions(int difficulty, const char* category) {
         Question* current = lists[i];
         while (current != NULL) {
             int difficultyMatch = (difficulty == -1 || current->difficulty == difficulty);
-            int categoryMatch = (strlen(category) == 0 || strcasecmp(current->category, category) == 0); // Using strcasecmp for case-insensitive compare
+            int categoryMatch = (strlen(category) == 0 || strcasecmp(current->category, category) == 0);
 
             if (difficultyMatch && categoryMatch) {
                 questionsFound++;
@@ -150,8 +146,8 @@ void displayFilteredQuestions(int difficulty, const char* category) {
                 }
 
                 printf("\n\nPress 'e' to exit, or any other key to see the next question...");
-                char choice = _getch(); // Read a single character without waiting for Enter
-                printf("\r                                                                  \r"); // Clear the line
+                char choice = _getch();
+                printf("\r                                                                  \r");
 
                 if (choice == 'e' || choice == 'E') {
                     shouldExit = 1;
@@ -183,8 +179,6 @@ void displayAllParticipants(const char* filename) {
     fclose(file);
 }
 
-// --- Contestant Views Implementation ---
-
 Contestant getContestantDetails() {
     Contestant p;
     printf("\n--- Contestant Registration ---\n");
@@ -200,8 +194,7 @@ Contestant getContestantDetails() {
     fgets(p.gender, 10, stdin);
     p.gender[strcspn(p.gender, "\n")] = 0;
 
-    // Initialize game stats
-    p.id = time(NULL); // Simple unique ID using timestamp
+    p.id = time(NULL);
     p.questionsAnswered = 0;
     p.lifelinesUsed = 0;
     p.prizeWon = 0;

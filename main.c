@@ -1,12 +1,9 @@
-// main.c
-
 #include <stdio.h>
-#include "view.h"       // For displaying menus
-#include "controller.h" // For admin and contestant logic
-#include "model.h"      // For loading data and cleanup
+#include "view.h"
+#include "controller.h"
+#include "model.h"
 
 int main() {
-    // Load all questions from the file into our linked lists at startup.
     if (!loadQuestionsFromFile("questions.txt")) {
         fprintf(stderr, "Error: Could not load questions. Exiting.\n");
         return 1;
@@ -14,21 +11,20 @@ int main() {
 
     int choice;
     while (1) {
-        displayMainMenu(); // A function from view.c
-        choice = getMenuChoice(); // A function from view.c
+        displayMainMenu();
+        choice = getMenuChoice();
 
         switch (choice) {
             case 1:
-                adminController(); // Switch to the admin module
+                adminController();
                 break;
             case 2:
-                contestantController(); // Switch to the contestant module
+                contestantController();
                 break;
             case 3:
                 printf("\nThank you for using the KBC system!\n");
-                // Free all dynamically allocated memory for the question linked lists
-                cleanupQuestions(); // A function from model.c
-                return 0; // Exit the program
+                cleanupQuestions();
+                return 0;
             default:
                 printf("\nInvalid choice. Please enter a number between 1 and 3.\n");
                 break;
