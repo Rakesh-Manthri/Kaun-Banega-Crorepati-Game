@@ -24,9 +24,8 @@ void parseLine(char* line, char* value) {
 int loadQuestionsFromFile(const char* filename) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
-        return 1; 
+        return 1;
     }
-
     char line[512];
     while (fgets(line, sizeof(line), file) != NULL) {
         Question* newQ = (Question*)malloc(sizeof(Question));
@@ -36,37 +35,27 @@ int loadQuestionsFromFile(const char* filename) {
             return 0;
         }
         newQ->next = NULL;
-
         char value[512];
-        
-        parseLine(line, value); // ID:101
+        parseLine(line, value);
         newQ->id = atoi(value);
-
-        fgets(line, sizeof(line), file); // QUESTION:Text
+        fgets(line, sizeof(line), file);
         parseLine(line, newQ->questionText);
-
         for (int i = 0; i < 4; i++) {
-            fgets(line, sizeof(line), file); // OPTx:Text
+            fgets(line, sizeof(line), file);
             parseLine(line, newQ->options[i]);
         }
-
-        fgets(line, sizeof(line), file); // CORRECT:3
+        fgets(line, sizeof(line), file);
         parseLine(line, value);
         newQ->correctOption = atoi(value);
-
-        fgets(line, sizeof(line), file); // CATEGORY:Text
+        fgets(line, sizeof(line), file);
         parseLine(line, newQ->category);
-
-        fgets(line, sizeof(line), file); // DIFFICULTY:0
+        fgets(line, sizeof(line), file);
         parseLine(line, value);
         newQ->difficulty = atoi(value);
-
         fgets(line, sizeof(line), file);
-
         addQuestionToList(newQ);
-        free(newQ); // addQuestionToList makes its own copy, so free the temporary one
+        free(newQ);
     }
-
     fclose(file);
     return 1;
 }
@@ -74,10 +63,8 @@ int loadQuestionsFromFile(const char* filename) {
 void addQuestionToList(Question* newQuestionData) {
     Question* newNode = (Question*)malloc(sizeof(Question));
     if (newNode == NULL) return;
-    
-    *newNode = *newQuestionData; // Copy all data
+    *newNode = *newQuestionData;
     newNode->next = NULL;
-
     switch (newNode->difficulty) {
         case 0:
             insertNode(&easyQuestions, newNode);
@@ -88,7 +75,7 @@ void addQuestionToList(Question* newQuestionData) {
         case 2:
             insertNode(&hardQuestions, newNode);
             break;
-        default: // Invalid difficulty, free the allocated memory
+        default:
             fprintf(stderr, "Warning: Invalid difficulty %d for question ID %d.\n", newNode->difficulty, newNode->id);
             free(newNode);
             break;
@@ -101,7 +88,6 @@ int saveQuestionsToFile(const char* filename) {
         fprintf(stderr, "Error: Could not open file %s for writing.\n", filename);
         return 0;
     }
-
     Question* lists[] = {easyQuestions, mediumQuestions, hardQuestions};
     for (int i = 0; i < 3; i++) {
         Question* current = lists[i];
@@ -118,7 +104,6 @@ int saveQuestionsToFile(const char* filename) {
             current = current->next;
         }
     }
-
     fclose(file);
     return 1;
 }
@@ -126,11 +111,9 @@ int saveQuestionsToFile(const char* filename) {
 int deleteQuestionById(int id) {
     Question* lists[] = {easyQuestions, mediumQuestions, hardQuestions};
     Question** heads[] = {&easyQuestions, &mediumQuestions, &hardQuestions};
-
     for (int i = 0; i < 3; i++) {
         Question* current = lists[i];
         Question* prev = NULL;
-        
         while (current != NULL) {
             if (current->id == id) {
                 if (prev == NULL) {
@@ -139,13 +122,13 @@ int deleteQuestionById(int id) {
                     prev->next = current->next;
                 }
                 free(current);
-                return 1; // Found and deleted
+                return 1;
             }
             prev = current;
             current = current->next;
         }
     }
-    return 0; // Not found
+    return 0;
 }
 
 void freeList(Question* head) {
@@ -243,13 +226,11 @@ QuizData* getQuizData() {
     QuizData* data = malloc(sizeof(QuizData));
     data->quizQueue = createQueue(10);
     data->lifelineStack = createStack(3);
-
     Question* lists[] = {easyQuestions, mediumQuestions, hardQuestions};
     int counts[] = {countQuestions(easyQuestions), countQuestions(mediumQuestions), countQuestions(hardQuestions)};
     int requiredForQueue[] = {3, 3, 4};
     int requiredForStack[] = {1, 1, 1};
-
-    for (int i = 0; i < 3; i++) { // For each difficulty level
+    for (int i = 0; i < 3; i++) {
         if (counts[i] < (requiredForQueue[i] + requiredForStack[i])) {
             fprintf(stderr, "Error: Not enough questions of difficulty %d. Need %d, have %d.\n", i, requiredForQueue[i] + requiredForStack[i], counts[i]);
             free(data->quizQueue->arr);
@@ -257,23 +238,19 @@ QuizData* getQuizData() {
             free(data->lifelineStack->a);
             free(data->lifelineStack);
             free(data);
-            return NULL; // Not enough questions to build a quiz
+            return NULL;
         }
-
         int* selected_indices = calloc(counts[i], sizeof(int));
         if (selected_indices == NULL) return NULL;
-
         for (int j = 0; j < requiredForQueue[i]; j++) {
             int rand_index;
             do {
                 rand_index = rand() % counts[i];
-            } while (selected_indices[rand_index] == 1); // Ensure we don't pick the same question twice
-            
+            } while (selected_indices[rand_index] == 1);   
             selected_indices[rand_index] = 1;
             Question* q = getQuestionAtIndex(lists[i], rand_index);
             if (q != NULL) enqueue(data->quizQueue, *q);
         }
-
         for (int j = 0; j < requiredForStack[i]; j++) {
             int rand_index;
             do {
@@ -296,25 +273,20 @@ QuizData* getQuizData() {
 int getLastContestantId() {
     FILE* file = fopen("participants.txt", "r");
     if (file == NULL) {
-        return 0; // If file doesn't exist, start IDs from 1 (0+1)
+        return 0;
     }
-
     char lastLine[256] = "";
     char currentLine[256];
-    
-    // Read file line by line to get the last one
     while (fgets(currentLine, sizeof(currentLine), file) != NULL) {
         strcpy(lastLine, currentLine);
     }
     fclose(file);
-
     if (strlen(lastLine) > 0) {
         int lastId = 0;
         sscanf(lastLine, "ID:%d,", &lastId);
         return lastId;
     }
-
-    return 0; // If file is empty, start IDs from 1 (0+1)
+    return 0;
 }
 
 int saveContestantToFile(const char* filename, Contestant contestant) {
@@ -323,7 +295,6 @@ int saveContestantToFile(const char* filename, Contestant contestant) {
         fprintf(stderr, "Error: Could not open file %s for appending.\n", filename);
         return 0;
     }
-
     fprintf(file, "ID:%d, Name:%s, Age:%d, Gender:%s, QuestionsAnswered:%d, Prize:Rs.%ld\n",
             contestant.id, contestant.name, contestant.age, contestant.gender,
             contestant.questionsAnswered, contestant.prizeWon);

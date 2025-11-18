@@ -25,5 +25,4 @@ void displayAudiencePoll(const int percentages[]);
 void displayAnswerResult(int isCorrect);
 void displayGameOver(Contestant player);
 
-
 #endif

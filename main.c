@@ -5,6 +5,10 @@
 #include "controller.h"
 #include "model.h"
 
+// ANSI Color Codes
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 int main() {
     if (!loadQuestionsFromFile("questions.txt")) {
         fprintf(stderr, "Error: Could not load questions. Exiting.\n");
@@ -26,7 +30,7 @@ int main() {
                 contestantController();
                 break;
             case 3:
-                printf("\nThank you for using the KBC system!\n");
+                printf(ANSI_COLOR_MAGENTA "\nZindagi ek khel hai, aur seekhna uska sabse bada inaam.\nAap sabka pyaar aur saath bana rahe.\nPhirse milte hain. Namaskar\n" ANSI_COLOR_RESET);
                 cleanupQuestions();
                 return 0;
             default:
@@ -34,6 +38,5 @@ int main() {
                 break;
         }
     }
-
     return 0;
 }

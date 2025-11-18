@@ -46,22 +46,22 @@ void getAdminCredentials(char* username, char* password) {
     printf(ANSI_COLOR_CYAN "Enter username: " ANSI_COLOR_RESET);
     scanf("%49s", username);
     while(getchar() != '\n');
-
     printf(ANSI_COLOR_CYAN "Enter password: " ANSI_COLOR_RESET);
     int i = 0;
     char ch;
     while (1) {
         ch = _getch();
-
         if (ch == '\r' || ch == '\n') {
             password[i] = '\0';
             break;
-        } else if (ch == '\b') {
+        }
+        else if (ch == '\b') {
             if (i > 0) {
                 i--;
                 printf("\b \b");
             }
-        } else if (i < 49) {
+        }
+        else if (i < 49) {
             password[i++] = ch;
             printf(ANSI_COLOR_YELLOW "*" ANSI_COLOR_RESET);
         }
@@ -74,30 +74,23 @@ Question getQuestionDetailsFromAdmin() {
     printf(ANSI_COLOR_CYAN "Enter Question ID: " ANSI_COLOR_RESET);
     scanf("%d", &q.id);
     getchar();
-
     printf(ANSI_COLOR_CYAN "Enter Question Text: " ANSI_COLOR_RESET);
     fgets(q.questionText, 512, stdin);
-
     for (int i = 0; i < 4; i++) {
         printf(ANSI_COLOR_CYAN "Enter Option %d: " ANSI_COLOR_RESET, i + 1);
         fgets(q.options[i], 100, stdin);
     }
-
     printf(ANSI_COLOR_CYAN "Enter Correct Option (1-4): " ANSI_COLOR_RESET);
     scanf("%d", &q.correctOption);
     getchar();
-
     printf(ANSI_COLOR_CYAN "Enter Category: " ANSI_COLOR_RESET);
     fgets(q.category, 50, stdin);
-
     printf(ANSI_COLOR_CYAN "Enter Difficulty (0-Easy, 1-Medium, 2-Hard): " ANSI_COLOR_RESET);
     scanf("%d", &q.difficulty);
     getchar();
-
     q.questionText[strcspn(q.questionText, "\n")] = 0;
     for(int i=0; i<4; i++) q.options[i][strcspn(q.options[i], "\n")] = 0;
     q.category[strcspn(q.category, "\n")] = 0;
-
     return q;
 }
 
@@ -143,7 +136,6 @@ void displayFilteredQuestions(int difficulty, const char* category) {
         while (current != NULL) {
             int difficultyMatch = (difficulty == -1 || current->difficulty == difficulty);
             int categoryMatch = (strlen(category) == 0 || strcasecmp(current->category, category) == 0);
-
             if (difficultyMatch && categoryMatch) {
                 questionsFound++;
                 printf("\n-------------------------------------\n");
@@ -152,11 +144,9 @@ void displayFilteredQuestions(int difficulty, const char* category) {
                 for (int j = 0; j < 4; j++) {
                     printf("  %d. %s %s\n", j + 1, current->options[j], (j + 1 == current->correctOption) ? ANSI_COLOR_GREEN "<- Correct" ANSI_COLOR_RESET : "");
                 }
-
                 printf("\n\nPress 'e' to exit, or any other key to see the next question...");
                 char choice = _getch();
                 printf("\r                                                                  \r");
-
                 if (choice == 'e' || choice == 'E') {
                     shouldExit = 1;
                     break;
@@ -178,7 +168,6 @@ void displayLeaderboard(Contestant* contestants, int count) {
     printf("\n\t\t\t" ANSI_COLOR_BLUE "********************************" ANSI_COLOR_RESET "\n");
     printf("\t\t\t" ANSI_COLOR_BLUE "*        KBC LEADERBOARD       *" ANSI_COLOR_RESET "\n");
     printf("\t\t\t" ANSI_COLOR_BLUE "********************************" ANSI_COLOR_RESET "\n\n");
-
     printf(ANSI_COLOR_BOLD_WHITE "----------------------------------------------------------------------------------------------------\n");
     printf("| %-4s | %-10s | %-30s | %-5s | %-10s | %-7s | %-12s |\n", "Rank", "ID", "Name", "Age", "Gender", "Qns Ans", "Prize Won");
     printf("----------------------------------------------------------------------------------------------------\n" ANSI_COLOR_RESET);
@@ -195,19 +184,15 @@ Contestant getContestantDetails() {
     printf(ANSI_COLOR_CYAN "Enter your name: " ANSI_COLOR_RESET);
     fgets(p.name, 100, stdin);
     p.name[strcspn(p.name, "\n")] = 0;
-
     printf(ANSI_COLOR_CYAN "Enter your age: " ANSI_COLOR_RESET);
     scanf("%d", &p.age);
     while(getchar() != '\n');
-
     printf(ANSI_COLOR_CYAN "Enter your gender: " ANSI_COLOR_RESET);
     fgets(p.gender, 10, stdin);
     p.gender[strcspn(p.gender, "\n")] = 0;
-
     p.questionsAnswered = 0;
     p.lifelinesUsed = 0;
     p.prizeWon = 0;
-
     return p;
 }
 
