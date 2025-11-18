@@ -59,6 +59,7 @@ Question pop(Stack *s);
 Question peek(Stack *s);
 
 QuizData* getQuizData();
+int getLastContestantId();
 int saveContestantToFile(const char* filename, Contestant contestant);
 
 #endif

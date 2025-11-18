@@ -204,7 +204,6 @@ Contestant getContestantDetails() {
     fgets(p.gender, 10, stdin);
     p.gender[strcspn(p.gender, "\n")] = 0;
 
-    p.id = time(NULL);
     p.questionsAnswered = 0;
     p.lifelinesUsed = 0;
     p.prizeWon = 0;

@@ -283,6 +283,7 @@ static int handleLifeline(Question *currentQ, int lifelines[], Contestant *playe
 
 void contestantController() {
     Contestant player = getContestantDetails();
+    player.id = getLastContestantId() + 1;
 
     displayRules();
     printf("\nPress Enter to start the quiz...");

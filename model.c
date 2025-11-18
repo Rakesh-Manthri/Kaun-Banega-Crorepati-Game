@@ -293,6 +293,30 @@ QuizData* getQuizData() {
     return data;
 }
 
+int getLastContestantId() {
+    FILE* file = fopen("participants.txt", "r");
+    if (file == NULL) {
+        return 0; // If file doesn't exist, start IDs from 1 (0+1)
+    }
+
+    char lastLine[256] = "";
+    char currentLine[256];
+    
+    // Read file line by line to get the last one
+    while (fgets(currentLine, sizeof(currentLine), file) != NULL) {
+        strcpy(lastLine, currentLine);
+    }
+    fclose(file);
+
+    if (strlen(lastLine) > 0) {
+        int lastId = 0;
+        sscanf(lastLine, "ID:%d,", &lastId);
+        return lastId;
+    }
+
+    return 0; // If file is empty, start IDs from 1 (0+1)
+}
+
 int saveContestantToFile(const char* filename, Contestant contestant) {
     FILE* file = fopen(filename, "a");
     if (file == NULL) {
