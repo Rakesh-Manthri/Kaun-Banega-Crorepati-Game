@@ -1,6 +1,6 @@
 ID:37
 QUESTION:Which element has the highest melting point in the periodic table?
-OPT1: Chromium
+OPT1:Chromium
 OPT2:Tungsten
 OPT3:rhenium
 OPT4:Osmium
@@ -22,7 +22,7 @@ ID:23
 QUESTION:In biology, what is the term for an organism that can synthesize its own food using light or chemical energy?
 OPT1:Heterotroph
 OPT2:Carnivore
-OPT3:3Autotroph
+OPT3:Autotroph
 OPT4:Decomposer
 CORRECT:3
 CATEGORY:Science
@@ -68,16 +68,6 @@ CORRECT:2
 CATEGORY:History
 DIFFICULTY:0
 ---
-ID:5
-QUESTION:What is the standard temperature at which water boils at sea level?
-OPT1:0 Degree C
-OPT2:50 Degree C
-OPT3:90 Degree C
-OPT4:100 Degree C
-CORRECT:4
-CATEGORY:General Knowledge
-DIFFICULTY:0
----
 ID:4
 QUESTION:How many players are there on the field for one team in a standard game of Football (Soccer)?
 OPT1:9
@@ -115,7 +105,7 @@ OPT2:Double Century
 OPT3:Century
 OPT4:Grand Slam
 CORRECT:3
-CATEGORY:Sport
+CATEGORY:Sports
 DIFFICULTY:0
 ---
 ID:40
@@ -136,16 +126,6 @@ OPT3:Sarnath
 OPT4:Kushinagar
 CORRECT:3
 CATEGORY:History
-DIFFICULTY:1
----
-ID:36
-QUESTION:The ancient city Takṣaśilā (Taxila) is believed to have been founded by which legendary figure?
-OPT1:
-OPT2:Taksha, son of Bharata
-OPT3:Sudas
-OPT4:Pururavas
-CORRECT:2
-CATEGORY:HISTORY
 DIFFICULTY:1
 ---
 ID:35
@@ -271,7 +251,7 @@ DIFFICULTY:1
 ID:38
 QUESTION:In computer science, the Cocke–Younger–Kasami (CYK) algorithm is used for which of the following tasks?
 OPT1:String matching
-OPT2: Checking grammar in Chomsky Normal Form
+OPT2:Checking grammar in Chomsky Normal Form
 OPT3:Graph traversal
 OPT4:Solving NP-complete problems
 CORRECT:2
@@ -280,7 +260,7 @@ DIFFICULTY:2
 ---
 ID:33
 QUESTION:Which of the following ancient Indian texts contains the earliest reference to the concept of zero as a number?
-OPT1: Sulba Sutras
+OPT1:Sulba Sutras
 OPT2:Aryabhatiya
 OPT3:Bakhshali Manuscript
 OPT4:Brahmasphutasiddhanta
@@ -325,16 +305,6 @@ OPT2:Quartz Watch
 OPT3:Pendulum Clock
 OPT4:Chronometer
 CORRECT:4
-CATEGORY:General Knowledge
-DIFFICULTY:2
----
-ID:28
-QUESTION:In the English language, what is the term for a word that is spelled the same forwards and backwards, such as "madam" or "refer"?
-OPT1:Anagram
-OPT2:Palindrome
-OPT3:Homophone
-OPT4:Oxymoron
-CORRECT:2
 CATEGORY:General Knowledge
 DIFFICULTY:2
 ---
