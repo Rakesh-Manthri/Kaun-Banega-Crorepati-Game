@@ -47,7 +47,9 @@ The source code is organized to ensure modularity and ease of maintenance:
  ┣ 📜 questions.txt       # Database of questions and answers
  ┣ 📜 participants.txt    # Log of past players and winnings
  ┗ 📜 README.md           # Project documentation
- ## ⚙️ Prerequisites
+```
+
+## ⚙️ Prerequisites
 To run this project, you need a C compiler installed on your system.
 -   **Compiler:** GCC (GNU Compiler Collection) is recommended.
 -   **OS:** Compatible with Windows, Linux, and macOS.
